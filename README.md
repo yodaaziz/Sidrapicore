@@ -1,65 +1,74 @@
-# Sidrapicore
-Site
-# Sidrapicore
+ 
+#!/bin/bash
 
-Application sociale React oÃ¹ les utilisateurs gagnent des Sidrapicores en partageant du contenu.
+echo "=== Déploiement automatique de Sidrapicore ==="
 
----
+# Étape 1 : Crée les fichiers nécessaires
+echo "Création de package.json..."
+cat > package.json <<EOL
+{
+  "name": "sidrapicore",
+  "version": "1.0.0",
+  "private": true,
+  "dependencies": {
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-scripts": "5.0.1"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject"
+  },
+  "eslintConfig": {
+    "extends": [
+      "react-app",
+      "react-app/jest"
+    ]
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  }
+}
+EOL
 
-## ðŸš€ DÃ©ploiement sur Vercel
+echo "Création de vercel.json..."
+cat > vercel.json <<EOL
+{
+  "version": 2,
+  "builds": [
+    { "src": "package.json", "use": "@vercel/static-build", "config": { "distDir": "build" } }
+  ],
+  "routes": [
+    { "src": "/(.*)", "dest": "/" }
+  ]
+}
+EOL
 
-### 1. PrÃ©parer le projet
+echo "Création de .env..."
+cat > .env <<EOL
+REACT_APP_API_URL=https://api.sidrapicore.com
+REACT_APP_WALLET_PUBLIC_KEY=ton_wallet_public_key_ici
+REACT_APP_SECRET_KEY=ta_clé_secrète_ultra_sécurisée
+REACT_APP_DEFAULT_LANG=fr
+REACT_APP_ENV=development
+EOL
 
-Assurez-vous que le projet fonctionne localement :
+echo ".env" >> .gitignore
 
-```bash
-npm install
-npm start
-```
+# Étape 2 : Ajout Git
+git add package.json vercel.json .env .gitignore
+git commit -m "Setup complet du projet Sidrapicore"
+git push
 
-### 2. CrÃ©er un compte sur Vercel
-
-- Allez sur [https://vercel.com](https://vercel.com)
-- Connectez-vous avec GitHub (recommandÃ©)
-
-### 3. Pousser le projet sur GitHub
-
-Si votre projet nâ€™est pas encore sur GitHub :
-
-```bash
-git init
-git add .
-git commit -m "Initial commit"
-git branch -M main
-git remote add origin https://github.com/votre-utilisateur/nom-du-repo.git
-git push -u origin main
-```
-
-### 4. DÃ©ployer sur Vercel
-
-1. Cliquez sur **"Add New Project"**
-2. SÃ©lectionnez le repo contenant Sidrapicore
-3. Vercel dÃ©tecte automatiquement que câ€™est une app React
-4. Laissez les options par dÃ©faut :
-   - **Framework preset** : React
-   - **Build command** : `npm run build`
-   - **Output directory** : `build`
-
-### 5. Finaliser
-
-- Cliquez sur **"Deploy"**
-- Votre app est disponible sur : `https://nom-projet.vercel.app`
-
-### 6. Mise Ã  jour automatique
-
-Ã€ chaque `git push`, Vercel redÃ©ploie automatiquement la derniÃ¨re version.
-
----
-
-## âœ… Astuce bonus
-
-Vous pouvez connecter un nom de domaine personnalisÃ© dans les paramÃ¨tres du projet sur Vercel.
-
----
-
-Fait avec amour pour la communautÃ© Sidrapicore.
+echo "=== Terminé ! Les fichiers sont prêts et le dépôt est à jour ==="
