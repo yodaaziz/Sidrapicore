@@ -1,1 +1,1 @@
-# Sidrapicore - Crypto Web App
+Contenu simulé de README.md

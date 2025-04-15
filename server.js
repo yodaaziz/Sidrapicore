@@ -1,1 +1,1 @@
-// Backend server entry point
+Contenu simulé de server.js
