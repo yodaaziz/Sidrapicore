@@ -1,0 +1,14 @@
+
+{
+  "name": "sidrapicore",
+  "version": "1.0.0",
+  "description": "Projet crypto Sidrapicore complet",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "dependencies": {
+    "express": "^4.18.2",
+    "mongoose": "^7.0.4"
+  }
+}
